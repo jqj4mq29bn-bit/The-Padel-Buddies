@@ -1,9 +1,24 @@
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+
+/**
+ * Firebase initialization using Vite environment variables (VITE_*)
+ * Do not commit real secrets to the repo. Use .env for local values and
+ * CI secrets for production.
+ */
 const firebaseConfig = {
-  apiKey: "AIzaSyCpxcq_rBuzK2qCuoFbWu5-N3nRBuGv648",
-  authDomain: "padel-buddies-f99c3.firebaseapp.com",
-  projectId: "padel-buddies-f99c3",
-  storageBucket: "padel-buddies-f99c3.firebasestorage.app",
-  messagingSenderId: "599676807092",
-  appId: "1:599676807092:web:c719c336aad20c5f1934e1",
-  measurementId: "G-MT5K64BXNN"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "",
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "",
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "",
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "",
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "",
+  appId: import.meta.env.VITE_FIREBASE_APP_ID || ""
 };
+
+const app = initializeApp(firebaseConfig);
+
+export const auth = getAuth(app);
+export const db = getFirestore(app);
+
+export default app;
